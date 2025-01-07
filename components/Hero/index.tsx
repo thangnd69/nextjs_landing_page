@@ -1,4 +1,7 @@
 "use client";
+import { setUsers } from "@/redux/reducer/users";
+import {  store } from "@/redux/store";
+import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -9,6 +12,16 @@ const Hero = () => {
     e.preventDefault();
   };
 
+  // gọi API và lưu giữ liệu vào trong store
+  const onGetUser = async () => {
+    const url = "https://jsonplaceholder.typicode.com/users";
+    const response = await axios.get(url);
+    try {
+      store.dispatch(setUsers(response.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <section className="overflow-hidden pb-20 pt-35 md:pt-40 xl:pb-25 xl:pt-46">
@@ -19,13 +32,14 @@ const Hero = () => {
                 🔥 Solid - A Complete SaaS Web Template
               </h4> */}
               <h1 className="mb-5 pr-16 text-3xl font-bold text-black dark:text-white xl:text-hero ">
-                Welcome to Apps Carrier  {"   "}
+                Welcome to Apps Carrier {"   "}
                 {/* <span className="relative inline-block before:absolute before:bottom-2.5 before:left-0 before:-z-1 before:h-3 before:w-full before:bg-titlebg dark:before:bg-titlebgdark ">
                   SaaS
                 </span> */}
               </h1>
               <p>
-              Được phát triển bởi FPT IS với đội ngũ chuyên gia hàng đầu NS CPS
+                Được phát triển bởi FPT IS với đội ngũ chuyên gia hàng đầu NS
+                CPS
               </p>
 
               <div className="mt-10">
@@ -41,6 +55,7 @@ const Hero = () => {
                     <button
                       aria-label="get started button"
                       className="flex rounded-full bg-black px-7.5 py-2.5 text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
+                      onClick={onGetUser}
                     >
                       Get Started
                     </button>
