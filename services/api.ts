@@ -7,6 +7,7 @@ export const register = async (data: {
   confirm_password: string;
 }) => {
   try {
+    
     const response = await publicAPI.post(
       "/api/v1/auth/register?lang=vi",
       data,
@@ -42,9 +43,9 @@ export const logout = async (data: { username: string; password: string }) => {
 
 export const getAllBlog = async () => {
   try {
-    const response = await axiosInstance.get("/api/v1/blogs");
-    return response.data;
-    // return getAllBlogRes;
+    // const response = await publicAPI.get("/api/v1/blogs");
+    // return response.data;
+    return getAllBlogRes;
   } catch (error) {
     console.error(error);
     throw error;

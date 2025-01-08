@@ -1,7 +1,6 @@
 import { setLoginSession } from "@/redux/reducer/auth";
-import { RootState, store } from "@/redux/store";
+import { store } from "@/redux/store";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 export const publicAPI = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -20,7 +19,7 @@ export const axiosInstance = axios.create({
 // Thêm interceptor cho mỗi request để tự động thêm access_token vào header
 axiosInstance.interceptors.request.use(
   (config) => {
-    const { loginSession } = useSelector((state: RootState) => state.auth);
+    const { loginSession } = store.getState().auth;
     const access_token = loginSession?.access_token;
     if (access_token) {
       config.headers["Authorization"] = `Bearer ${access_token}`;
@@ -37,8 +36,8 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    const { loginSession } = useSelector((state: RootState) => state.auth);
-    if (error.response.status === 401 && !originalRequest._retry) {
+    const { loginSession } = store.getState().auth;
+    if (error?.response?.status === 401 && !originalRequest._retry) {
       // Nếu token hết hạn, thử refresh lại token
       originalRequest._retry = true;
       // Gọi API refresh token
