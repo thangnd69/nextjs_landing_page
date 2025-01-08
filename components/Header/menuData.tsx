@@ -42,18 +42,18 @@ const menuData: Menu[] = [
         newTab: false,
         path: "/blog",
       },
-      {
-        id: 34,
-        title: "Sign In",
-        newTab: false,
-        path: "/auth/signin",
-      },
-      {
-        id: 35,
-        title: "Sign Up",
-        newTab: false,
-        path: "/auth/signup",
-      },
+      // {
+      //   id: 34,
+      //   title: "Sign In",
+      //   newTab: false,
+      //   path: "/auth/signin",
+      // },
+      // {
+      //   id: 35,
+      //   title: "Sign Up",
+      //   newTab: false,
+      //   path: "/auth/signup",
+      // },
       {
         id: 35,
         title: "Docs",

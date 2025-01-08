@@ -1,17 +1,39 @@
 "use client";
+import { register } from "@/services/api";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Signup = () => {
-  const [data, setData] = useState({
+  const router = useRouter(); // Khởi tạo router
+  const [formInput, setFormInput] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
   });
 
+  async function onRegister() {
+    try {
+      let res = await register({
+        user_name: formInput.firstName + " " + formInput.lastName,
+        email: formInput.email,
+        password: formInput.password,
+        confirm_password: formInput.password,
+      });
+      const { code, data, message } = res?.data || {};
+      // const { code, data, message } = registerRes;
+      if (code == 201 && data) {
+        toast.success(message);
+        router.push("/auth/signin"); // chuyển hướng đến trang đăng nhập
+      } else {
+        toast.error(message);
+      }
+    } catch (error) {}
+  }
   return (
     <>
       {/* <!-- ===== SignUp Form Start ===== --> */}
@@ -123,15 +145,18 @@ const Signup = () => {
               <span className="dark:bg-stroke-dark hidden h-[1px] w-full max-w-[200px] bg-stroke dark:bg-strokedark sm:block"></span>
             </div>
 
-            <form>
+            <div>
               <div className="mb-7.5 flex flex-col gap-7.5 lg:mb-12.5 lg:flex-row lg:justify-between lg:gap-14">
                 <input
                   name="firstName"
                   type="text"
                   placeholder="First name"
-                  value={data.firstName}
+                  value={formInput.firstName}
                   onChange={(e) =>
-                    setData({ ...data, [e.target.name]: e.target.value })
+                    setFormInput({
+                      ...formInput,
+                      [e.target.name]: e.target.value,
+                    })
                   }
                   className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
@@ -140,9 +165,12 @@ const Signup = () => {
                   name="lastName"
                   type="text"
                   placeholder="Last name"
-                  value={data.lastName}
+                  value={formInput.lastName}
                   onChange={(e) =>
-                    setData({ ...data, [e.target.name]: e.target.value })
+                    setFormInput({
+                      ...formInput,
+                      [e.target.name]: e.target.value,
+                    })
                   }
                   className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
@@ -153,9 +181,12 @@ const Signup = () => {
                   name="email"
                   type="email"
                   placeholder="Email address"
-                  value={data.email}
+                  value={formInput.email}
                   onChange={(e) =>
-                    setData({ ...data, [e.target.name]: e.target.value })
+                    setFormInput({
+                      ...formInput,
+                      [e.target.name]: e.target.value,
+                    })
                   }
                   className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
@@ -164,9 +195,12 @@ const Signup = () => {
                   name="password"
                   type="password"
                   placeholder="Password"
-                  value={data.password}
+                  value={formInput.password}
                   onChange={(e) =>
-                    setData({ ...data, [e.target.name]: e.target.value })
+                    setFormInput({
+                      ...formInput,
+                      [e.target.name]: e.target.value,
+                    })
                   }
                   className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
@@ -179,7 +213,7 @@ const Signup = () => {
                     type="checkbox"
                     className="peer sr-only"
                   />
-                  <span className="border-gray-300 bg-gray-100 text-blue-600 dark:border-gray-600 dark:bg-gray-700 group mt-1 flex h-5 min-w-[20px] items-center justify-center rounded peer-checked:bg-primary">
+                  <span className="group mt-1 flex h-5 min-w-[20px] items-center justify-center rounded border-gray-300 bg-gray-100 text-blue-600 peer-checked:bg-primary dark:border-gray-600 dark:bg-gray-700">
                     <svg
                       className="opacity-0 peer-checked:group-[]:opacity-100"
                       width="10"
@@ -207,6 +241,7 @@ const Signup = () => {
                 <button
                   aria-label="signup with email and password"
                   className="inline-flex items-center gap-2.5 rounded-full bg-black px-6 py-3 font-medium text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
+                  onClick={onRegister}
                 >
                   Create Account
                   <svg
@@ -236,7 +271,7 @@ const Signup = () => {
                   </Link>
                 </p>
               </div>
-            </form>
+            </div>
           </motion.div>
         </div>
       </section>

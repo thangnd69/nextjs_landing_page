@@ -1,7 +1,4 @@
 "use client";
-import { setUsers } from "@/redux/reducer/users";
-import {  store } from "@/redux/store";
-import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -12,16 +9,6 @@ const Hero = () => {
     e.preventDefault();
   };
 
-  // gọi API và lưu giữ liệu vào trong store
-  const onGetUser = async () => {
-    const url = "https://jsonplaceholder.typicode.com/users";
-    const response = await axios.get(url);
-    try {
-      store.dispatch(setUsers(response.data));
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <>
       <section className="overflow-hidden pb-20 pt-35 md:pt-40 xl:pb-25 xl:pt-46">
@@ -55,7 +42,6 @@ const Hero = () => {
                     <button
                       aria-label="get started button"
                       className="flex rounded-full bg-black px-7.5 py-2.5 text-white duration-300 ease-in-out hover:bg-blackho dark:bg-btndark dark:hover:bg-blackho"
-                      onClick={onGetUser}
                     >
                       Get Started
                     </button>

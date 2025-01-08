@@ -2,10 +2,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import thunk from "redux-thunk";
 import usersReducer from "./reducer/users";
+import authuReducer from "./reducer/auth";
 
 // Kết hợp tất cả các reducer lại thành một object duy nhất.
 const reducers = combineReducers({
-  users: usersReducer,
+  user: usersReducer,
+  auth: authuReducer,
 });
 
 // Cấu hình store
