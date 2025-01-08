@@ -20,7 +20,7 @@ export const register = async (data: {
   }
 };
 
-export const login = async (data: { username: string; password: string }) => {
+export const login = async (data: { user_name: string; password: string }) => {
   try {
     const response = await publicAPI.post("/api/v1/auth/login", data);
     return response.data;

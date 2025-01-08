@@ -18,7 +18,7 @@ const Signin = () => {
   async function onLogin() {
     try {
       let res = await login({
-        username: formInput.username,
+        user_name: formInput.username,
         password: formInput.password,
       });
       const { code, data, message } = res || {};
