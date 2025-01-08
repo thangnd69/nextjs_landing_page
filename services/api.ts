@@ -1,4 +1,4 @@
-import { publicAPI } from "@/utils/axiosConfig";
+import { axiosInstance, publicAPI } from "@/utils/axiosConfig";
 
 export const register = async (data: {
   user_name: string;
@@ -12,6 +12,7 @@ export const register = async (data: {
       data,
     );
     return response.data;
+    // return registerRes;
   } catch (error) {
     console.error(error);
     throw error;
@@ -22,6 +23,7 @@ export const login = async (data: { username: string; password: string }) => {
   try {
     const response = await publicAPI.post("/api/v1/auth/login", data);
     return response.data;
+    // return loginRes;
   } catch (error) {
     console.error(error);
     throw error;
@@ -32,6 +34,39 @@ export const logout = async (data: { username: string; password: string }) => {
   try {
     const response = await publicAPI.post("/api/v1/auth/login", data);
     return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getAllBlog = async () => {
+  try {
+    const response = await axiosInstance.get("/api/v1/blogs");
+    return response.data;
+    // return getAllBlogRes;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const editPost = async () => {
+  try {
+    const response = await axiosInstance.put("/api/v1/blogs");
+    return response.data;
+    // return getAllBlogRes;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const deletePost = async () => {
+  try {
+    // const response = await publicAPI.get("/api/v1/blogs");
+    // return response.data;
+    return getAllBlogRes;
   } catch (error) {
     console.error(error);
     throw error;
@@ -103,5 +138,143 @@ export const createBlogRes = {
     content: "This is the content of my blog 2.",
     author: "John Doe",
     type: "security",
+  },
+};
+
+export const getAllBlogRes = {
+  status: "200 OK",
+  code: 200,
+  message: "200000001",
+  data: {
+    content: [
+      {
+        id: 5,
+        createdAt: "2025-01-08T06:35:18.183596Z",
+        createdBy: null,
+        updatedBy: null,
+        updatedAt: "2025-01-08T06:35:18.183596Z",
+        deletedAt: null,
+        deletedBy: null,
+        isDeleted: false,
+        title: "My First Blog1",
+        content: "This is the content of my blog 2.",
+        author: "John Doe",
+        mainImage: "/images/blog/blog-03.png",
+      },
+      {
+        id: 4,
+        createdAt: "2025-01-07T15:03:06.190481Z",
+        createdBy: null,
+        updatedBy: null,
+        updatedAt: "2025-01-08T10:28:47.327625Z",
+        deletedAt: null,
+        deletedBy: null,
+        isDeleted: false,
+        title: "My First Blog222",
+        content: "This is the content of my blog 222222222",
+        author: "John Doeqư",
+        mainImage: "/images/blog/blog-03.png",
+      },
+      {
+        id: 1,
+        createdAt: "2025-01-07T15:03:06.190481Z",
+        createdBy: null,
+        updatedBy: null,
+        updatedAt: "2025-01-08T10:28:47.327625Z",
+        deletedAt: null,
+        deletedBy: null,
+        isDeleted: false,
+        title: "My First Blog222",
+        content: "This is the content of my blog 222222222",
+        author: "John Doeqư",
+        mainImage: "/images/blog/blog-03.png",
+      },
+      {
+        id: 2,
+        createdAt: "2025-01-07T15:03:06.190481Z",
+        createdBy: null,
+        updatedBy: null,
+        updatedAt: "2025-01-08T10:28:47.327625Z",
+        deletedAt: null,
+        deletedBy: null,
+        isDeleted: false,
+        title: "My First Blog222",
+        content: "This is the content of my blog 222222222",
+        author: "John Doeqư",
+        mainImage: "/images/blog/blog-03.png",
+      },
+      {
+        id: 6,
+        createdAt: "2025-01-07T15:03:06.190481Z",
+        createdBy: null,
+        updatedBy: null,
+        updatedAt: "2025-01-08T10:28:47.327625Z",
+        deletedAt: null,
+        deletedBy: null,
+        isDeleted: false,
+        title: "My First Blog222",
+        content: "This is the content of my blog 222222222",
+        author: "John Doeqư",
+        mainImage: "/images/blog/blog-03.png",
+      },
+      {
+        id: 7,
+        createdAt: "2025-01-07T15:03:06.190481Z",
+        createdBy: null,
+        updatedBy: null,
+        updatedAt: "2025-01-08T10:28:47.327625Z",
+        deletedAt: null,
+        deletedBy: null,
+        isDeleted: false,
+        title: "My First Blog222",
+        content: "This is the content of my blog 222222222",
+        author: "John Doeqư",
+        mainImage: "/images/blog/blog-03.png",
+      },
+    ],
+    pageable: {
+      pageNumber: 0,
+      pageSize: 6,
+      sort: {
+        empty: false,
+        sorted: true,
+        unsorted: false,
+      },
+      offset: 0,
+      paged: true,
+      unpaged: false,
+    },
+    last: true,
+    totalElements: 2,
+    totalPages: 1,
+    size: 6,
+    number: 0,
+    sort: {
+      empty: false,
+      sorted: true,
+      unsorted: false,
+    },
+    first: true,
+    numberOfElements: 2,
+    empty: false,
+  },
+};
+
+export const editPostRes = {
+  status: "200 OK",
+  code: 200,
+  message: "100000012",
+  data: {
+    id: 4,
+    createdAt: "2025-01-07T15:03:06.190481Z",
+    createdBy: null,
+    updatedBy: null,
+    updatedAt: "2025-01-08T10:28:47.327625300Z",
+    deletedAt: null,
+    deletedBy: null,
+    isDeleted: false,
+    title: "My First Blog222",
+    content: "This is the content of my blog 222222222",
+    author: "John Doeqư",
   },
 };

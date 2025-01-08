@@ -17,3 +17,11 @@ export type Blog = {
   tags?: string[];
   publishedAt?: string;
 };
+
+export type IBlog = {
+  id: number | null;
+  title: string;
+  content: string | null;
+  author: string | null;
+  mainImage: string;
+};

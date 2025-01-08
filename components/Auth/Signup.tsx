@@ -24,8 +24,7 @@ const Signup = () => {
         password: formInput.password,
         confirm_password: formInput.password,
       });
-      const { code, data, message } = res?.data || {};
-      // const { code, data, message } = registerRes;
+      const { code, data, message } = res || {};
       if (code == 201 && data) {
         toast.success(message);
         router.push("/auth/signin"); // chuyển hướng đến trang đăng nhập

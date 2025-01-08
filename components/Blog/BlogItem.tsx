@@ -1,12 +1,14 @@
 "use client";
-import { Blog } from "@/types/blog";
+import { RootState } from "@/redux/store";
+import { IBlog } from "@/types/blog";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
-const BlogItem = ({ blog }: { blog: Blog }) => {
-  const { mainImage, title, metadata } = blog;
-
+const BlogItem = ({ blog }: { blog: IBlog }) => {
+  const { id, mainImage, title, content } = blog;
+  const { isLogin } = useSelector((state: RootState) => state.auth);
   return (
     <>
       <motion.div
@@ -37,8 +39,24 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
               {`${title.slice(0, 40)}...`}
             </Link>
           </h3>
-          <p className="line-clamp-3">{metadata}</p>
+          <p className="line-clamp-3">{content}</p>
         </div>
+        {isLogin && (
+          <div className="mt-2 flex justify-end gap-3">
+            <button
+              aria-label="signup with google"
+              className="text-body-color dark:text-body-color-dark dark:shadow-two flex w-full items-center justify-center rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none"
+            >
+              Sửa
+            </button>
+            <button
+              aria-label="signup with google"
+              className="text-body-color dark:text-body-color-dark dark:shadow-two flex w-full items-center justify-center rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none"
+            >
+              Xóa
+            </button>
+          </div>
+        )}
       </motion.div>
     </>
   );

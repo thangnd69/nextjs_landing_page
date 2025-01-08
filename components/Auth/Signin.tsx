@@ -21,8 +21,7 @@ const Signin = () => {
         username: formInput.username,
         password: formInput.password,
       });
-      const { code, data, message } = res?.data || {};
-      // const { code, data, message } = loginRes;
+      const { code, data, message } = res || {};
       if (code == 200 && data) {
         localStorage.setItem("loginInfo", JSON.stringify(data));
         store.dispatch(
