@@ -8,12 +8,12 @@ export const register = async (data: {
 }) => {
   try {
     
-    const response = await publicAPI.post(
-      "/api/v1/auth/register?lang=vi",
-      data,
-    );
-    return response.data;
-    // return registerRes;
+    // const response = await publicAPI.post(
+    //   "/api/v1/auth/register?lang=vi",
+    //   data,
+    // );
+    // return response.data;
+    return registerRes;
   } catch (error) {
     console.error(error);
     throw error;
@@ -22,9 +22,9 @@ export const register = async (data: {
 
 export const login = async (data: { user_name: string; password: string }) => {
   try {
-    const response = await publicAPI.post("/api/v1/auth/login", data);
-    return response.data;
-    // return loginRes;
+    // const response = await publicAPI.post("/api/v1/auth/login", data);
+    // return response.data;
+    return loginRes;
   } catch (error) {
     console.error(error);
     throw error;
@@ -63,11 +63,11 @@ export const editPost = async () => {
   }
 };
 
-export const deletePost = async () => {
+export const deletePost = async (data: number) => {
   try {
-    // const response = await publicAPI.get("/api/v1/blogs");
+    const response = await axiosInstance.delete("/api/v1/blogs/4");
     // return response.data;
-    return getAllBlogRes;
+    // return getAllBlogRes;
   } catch (error) {
     console.error(error);
     throw error;
