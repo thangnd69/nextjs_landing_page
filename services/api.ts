@@ -52,6 +52,21 @@ export const getAllBlog = async () => {
   }
 };
 
+export const createPost = async (data: {
+  title: string | null;
+  author: string | null;
+  content: string | null;
+  type: string | null;
+}) => {
+  try {
+    const response = await axiosInstance.post("/api/v1/blogs");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const editPost = async () => {
   try {
     const response = await axiosInstance.put("/api/v1/blogs");
