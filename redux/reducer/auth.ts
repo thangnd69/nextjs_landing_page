@@ -28,6 +28,9 @@ export const authuSlice = createSlice({
     setStateLogin: (state, action: { payload: boolean }) => {
       state.isLogin = action?.payload;
     },
+    setStateLogout: (state) => {
+      state.loginSession = null;
+    },
     setInitialized: (state) => {
       state.initialized = true;
     },
@@ -35,5 +38,5 @@ export const authuSlice = createSlice({
 });
 
 // Xuất action và reducer
-export const { setLoginSession, setInitialized, setStateLogin } = authuSlice.actions;
+export const { setLoginSession, setInitialized, setStateLogin, setStateLogout } = authuSlice.actions;
 export default authuSlice.reducer;

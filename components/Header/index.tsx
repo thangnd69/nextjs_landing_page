@@ -7,15 +7,22 @@ import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
 import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
+import { RootState, store } from "@/redux/store";
+import { logout } from "@/services/api";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { setStateLogin, setStateLogout } from "@/redux/reducer/auth";
 
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [dropdownToggler, setDropdownToggler] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
+  const router = useRouter(); // Khởi tạo router
 
   const pathUrl = usePathname();
-  const { isLogin } = useSelector((state: RootState) => state.auth);
+  const { isLogin, loginSession } = useSelector(
+    (state: RootState) => state.auth,
+  );
 
   // Sticky menu
   const handleStickyMenu = () => {
@@ -30,6 +37,23 @@ const Header = () => {
     window.addEventListener("scroll", handleStickyMenu);
   });
 
+  const onLogout = async () => {
+    try {
+      let res = await logout(
+        loginSession?.session_state ? loginSession?.session_state : "",
+      );
+      const { code, data, message } = res || {};
+      if (code == 200 && data) {
+        store.dispatch(setStateLogout());
+        store.dispatch(setStateLogin(false));
+        localStorage.removeItem("loginInfo");
+        router.push("/"); // chuyển hướng đến trang đăng nhập
+        toast.success(message);
+      } else {
+        toast.error(message);
+      }
+    } catch (error) {}
+  };
   return (
     <header
       className={`fixed left-0 top-0 z-99999 w-full py-7 ${
@@ -156,7 +180,7 @@ const Header = () => {
 
           <div className="mt-7 flex items-center gap-6 xl:mt-0">
             <ThemeToggler />
-            {!isLogin && (
+            {!isLogin ? (
               <>
                 <Link
                   // href="https://github.com/NextJSTemplates/solid-nextjs"
@@ -174,6 +198,39 @@ const Header = () => {
                   Sign Up
                 </Link>
               </>
+            ) : (
+              <ul className="flex flex-col gap-5 xl:flex-row xl:items-center">
+                <li className={"group relative"}>
+                  <>
+                    <button
+                      onClick={() => setDropdownToggler(!dropdownToggler)}
+                      className="flex cursor-pointer items-center justify-between gap-3 hover:text-primary"
+                    >
+                      Admin
+                      <span>
+                        <svg
+                          className="h-3 w-3 cursor-pointer fill-waterloo group-hover:fill-primary"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512"
+                        >
+                          <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+                        </svg>
+                      </span>
+                    </button>
+
+                    <ul
+                      className={`dropdown ${dropdownToggler ? "flex" : ""}`}
+                      style={{
+                        width: "10px",
+                      }}
+                    >
+                      <li className="hover:text-red-500">
+                        <a onClick={onLogout}>Log out</a>
+                      </li>
+                    </ul>
+                  </>
+                </li>
+              </ul>
             )}
           </div>
         </div>
