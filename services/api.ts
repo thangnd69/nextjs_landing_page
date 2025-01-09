@@ -57,6 +57,7 @@ export const createPost = async (data: {
   title: string | null;
   author: string | null;
   content: string | null;
+  type: string | null;
 }) => {
   try {
     const response = await axiosInstance.post("/api/v1/blogs");

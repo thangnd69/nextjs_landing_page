@@ -12,6 +12,7 @@ const CreatePost = () => {
     title: "",
     author: "",
     content: "",
+    type: "",
   });
 
   async function onCreate() {
@@ -20,6 +21,7 @@ const CreatePost = () => {
         title: formInput.title,
         author: formInput.author,
         content: formInput.content,
+        type: formInput.type,
       });
       const { code, message } = res || {};
       if (code == 201) {
@@ -105,6 +107,20 @@ const CreatePost = () => {
               </div>
 
               <div className="row mb-7.5 flex gap-7.5 lg:mb-12.5 lg:flex-row lg:justify-between lg:gap-14">
+              <input
+                  name="type"
+                  type="text"
+                  placeholder="Type"
+                  value={formInput.type}
+                  onChange={(e) =>
+                    setFormInput({
+                      ...formInput,
+                      [e.target.name]: e.target.value,
+                    })
+                  }
+                  className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
+                />
+
                 <textarea
                   name="content"
                   // type="textarea"
@@ -116,7 +132,7 @@ const CreatePost = () => {
                       [e.target.name]: e.target.value,
                     })
                   }
-                  className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white"
+                  className="w-full border-b border-stroke bg-transparent pb-3.5 focus:border-waterloo focus:placeholder:text-black focus-visible:outline-none dark:border-strokedark dark:focus:border-manatee dark:focus:placeholder:text-white lg:w-1/2"
                 />
               </div>
 
