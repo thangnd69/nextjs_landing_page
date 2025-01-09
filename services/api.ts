@@ -7,12 +7,12 @@ export const register = async (data: {
   confirm_password: string;
 }) => {
   try {
-    // const response = await publicAPI.post(
-    //   "/api/v1/auth/register?lang=vi",
-    //   data,
-    // );
-    // return response.data;
-    return registerRes;
+    const response = await publicAPI.post(
+      "/api/v1/auth/register?lang=vi",
+      data,
+    );
+    return response.data;
+    // return registerRes;
   } catch (error) {
     console.error(error);
     throw error;
@@ -21,9 +21,9 @@ export const register = async (data: {
 
 export const login = async (data: { user_name: string; password: string }) => {
   try {
-    // const response = await publicAPI.post("/api/v1/auth/login", data);
-    // return response.data;
-    return loginRes;
+    const response = await publicAPI.post("/api/v1/auth/login", data);
+    return response.data;
+    // return loginRes;
   } catch (error) {
     console.error(error);
     throw error;
@@ -44,9 +44,9 @@ export const logout = async (data: string) => {
 
 export const getAllBlog = async () => {
   try {
-    // const response = await publicAPI.get("/api/v1/blogs");
-    // return response.data;
-    return getAllBlogRes;
+    const response = await publicAPI.get("/api/v1/blogs");
+    return response.data;
+    // return getAllBlogRes;
   } catch (error) {
     console.error(error);
     throw error;
