@@ -54,14 +54,14 @@ const BlogItem: React.FC<ChildComponentProps> = ({ onDelete, blog }) => {
               aria-label="signup with google"
               className="text-body-color dark:text-body-color-dark dark:shadow-two flex w-full items-center justify-center rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none"
             >
-              Sửa
+              Edit
             </button>
             <button
               aria-label="signup with google"
               className="text-body-color dark:text-body-color-dark dark:shadow-two flex w-full items-center justify-center rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none"
               onClick={() => onDelete(id ? id : 0)}
             >
-              Xóa
+              Delete
             </button>
           </div>
         )}
