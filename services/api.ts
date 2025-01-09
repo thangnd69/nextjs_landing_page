@@ -7,12 +7,13 @@ export const register = async (data: {
   confirm_password: string;
 }) => {
   try {
-    const response = await publicAPI.post(
-      "/api/v1/auth/register?lang=vi",
-      data,
-    );
-    return response.data;
-    // return registerRes;
+    
+    // const response = await publicAPI.post(
+    //   "/api/v1/auth/register?lang=vi",
+    //   data,
+    // );
+    // return response.data;
+    return registerRes;
   } catch (error) {
     console.error(error);
     throw error;
@@ -30,11 +31,9 @@ export const login = async (data: { user_name: string; password: string }) => {
   }
 };
 
-export const logout = async (data: string) => {
+export const logout = async (data: { username: string; password: string }) => {
   try {
-    const response = await publicAPI.post(
-      "/api/v1/auth/logout?sessionState=" + data,
-    );
+    const response = await publicAPI.post("/api/v1/auth/login", data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -44,23 +43,9 @@ export const logout = async (data: string) => {
 
 export const getAllBlog = async () => {
   try {
-    const response = await publicAPI.get("/api/v1/blogs");
-    return response.data;
+    const response = await axiosInstance.get("/api/v1/blogs?page=0&size=6&sortBy=createdAt&direction=desc");
+     return response.data;
     // return getAllBlogRes;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
-
-export const createPost = async (data: {
-  title: string | null;
-  author: string | null;
-  content: string | null;
-}) => {
-  try {
-    const response = await axiosInstance.post("/api/v1/blogs");
-    return response.data;
   } catch (error) {
     console.error(error);
     throw error;
@@ -80,8 +65,9 @@ export const editPost = async () => {
 
 export const deletePost = async (data: number) => {
   try {
-    const response = await axiosInstance.delete("/api/v1/blogs/" + data);
-    return response.data;
+    const response = await axiosInstance.delete("/api/v1/blogs/6");
+    // return response.data;
+    // return getAllBlogRes;
   } catch (error) {
     console.error(error);
     throw error;
@@ -174,6 +160,7 @@ export const getAllBlogRes = {
         title: "My First Blog1",
         content: "This is the content of my blog 2.",
         author: "John Doe",
+        mainImage: "/images/blog/blog-03.png",
       },
       {
         id: 4,
@@ -187,6 +174,7 @@ export const getAllBlogRes = {
         title: "My First Blog222",
         content: "This is the content of my blog 222222222",
         author: "John Doeqư",
+        mainImage: "/images/blog/blog-03.png",
       },
       {
         id: 1,
@@ -200,6 +188,7 @@ export const getAllBlogRes = {
         title: "My First Blog222",
         content: "This is the content of my blog 222222222",
         author: "John Doeqư",
+        mainImage: "/images/blog/blog-03.png",
       },
       {
         id: 2,
@@ -213,6 +202,7 @@ export const getAllBlogRes = {
         title: "My First Blog222",
         content: "This is the content of my blog 222222222",
         author: "John Doeqư",
+        mainImage: "/images/blog/blog-03.png",
       },
       {
         id: 6,
@@ -226,6 +216,7 @@ export const getAllBlogRes = {
         title: "My First Blog222",
         content: "This is the content of my blog 222222222",
         author: "John Doeqư",
+        mainImage: "/images/blog/blog-03.png",
       },
       {
         id: 7,
@@ -239,6 +230,7 @@ export const getAllBlogRes = {
         title: "My First Blog222",
         content: "This is the content of my blog 222222222",
         author: "John Doeqư",
+        mainImage: "/images/blog/blog-03.png",
       },
     ],
     pageable: {
