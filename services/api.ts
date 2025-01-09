@@ -66,9 +66,8 @@ export const editPost = async () => {
 
 export const deletePost = async (data: number) => {
   try {
-    const response = await axiosInstance.delete("/api/v1/blogs/4");
-    // return response.data;
-    // return getAllBlogRes;
+    const response = await axiosInstance.delete("/api/v1/blogs/" + data);
+    return response.data;
   } catch (error) {
     console.error(error);
     throw error;
@@ -161,7 +160,6 @@ export const getAllBlogRes = {
         title: "My First Blog1",
         content: "This is the content of my blog 2.",
         author: "John Doe",
-        mainImage: "/images/blog/blog-03.png",
       },
       {
         id: 4,
@@ -175,7 +173,6 @@ export const getAllBlogRes = {
         title: "My First Blog222",
         content: "This is the content of my blog 222222222",
         author: "John Doeqư",
-        mainImage: "/images/blog/blog-03.png",
       },
       {
         id: 1,
@@ -189,7 +186,6 @@ export const getAllBlogRes = {
         title: "My First Blog222",
         content: "This is the content of my blog 222222222",
         author: "John Doeqư",
-        mainImage: "/images/blog/blog-03.png",
       },
       {
         id: 2,
@@ -203,7 +199,6 @@ export const getAllBlogRes = {
         title: "My First Blog222",
         content: "This is the content of my blog 222222222",
         author: "John Doeqư",
-        mainImage: "/images/blog/blog-03.png",
       },
       {
         id: 6,
@@ -217,7 +212,6 @@ export const getAllBlogRes = {
         title: "My First Blog222",
         content: "This is the content of my blog 222222222",
         author: "John Doeqư",
-        mainImage: "/images/blog/blog-03.png",
       },
       {
         id: 7,
@@ -231,7 +225,6 @@ export const getAllBlogRes = {
         title: "My First Blog222",
         content: "This is the content of my blog 222222222",
         author: "John Doeqư",
-        mainImage: "/images/blog/blog-03.png",
       },
     ],
     pageable: {

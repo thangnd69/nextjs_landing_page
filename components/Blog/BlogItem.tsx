@@ -1,21 +1,21 @@
 "use client";
 import { RootState } from "@/redux/store";
-import { deletePost } from "@/services/api";
 import { IBlog } from "@/types/blog";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
-const BlogItem = ({ blog }: { blog: IBlog }) => {
+// Định nghĩa kiểu cho props
+interface ChildComponentProps {
+  onDelete: (id: number) => Promise<void>; // onDelete là một async function
+  blog: IBlog; // Blog có kiểu IBlog
+}
+
+const BlogItem: React.FC<ChildComponentProps> = ({ onDelete, blog }) => {
   const { id, mainImage, title, content } = blog;
   const { isLogin } = useSelector((state: RootState) => state.auth);
 
-  const onDelete = async () => {
-    try {
-      let res = await deletePost(4);
-    } catch (error) {}
-  };
   return (
     <>
       <motion.div
@@ -59,7 +59,7 @@ const BlogItem = ({ blog }: { blog: IBlog }) => {
             <button
               aria-label="signup with google"
               className="text-body-color dark:text-body-color-dark dark:shadow-two flex w-full items-center justify-center rounded-sm border border-stroke bg-[#f8f8f8] px-6 py-3 text-base outline-none transition-all duration-300 hover:border-primary hover:bg-primary/5 hover:text-primary dark:border-transparent dark:bg-[#2C303B] dark:hover:border-primary dark:hover:bg-primary/5 dark:hover:text-primary dark:hover:shadow-none"
-              onClick={onDelete}
+              onClick={() => onDelete(id ? id : 0)}
             >
               Xóa
             </button>

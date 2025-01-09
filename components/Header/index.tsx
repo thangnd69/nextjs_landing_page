@@ -206,7 +206,7 @@ const Header = () => {
                       onClick={() => setDropdownToggler(!dropdownToggler)}
                       className="flex cursor-pointer items-center justify-between gap-3 hover:text-primary"
                     >
-                      Admin
+                      {localStorage.getItem("user_name")}
                       <span>
                         <svg
                           className="h-3 w-3 cursor-pointer fill-waterloo group-hover:fill-primary"

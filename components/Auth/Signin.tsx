@@ -24,6 +24,7 @@ const Signin = () => {
       const { code, data, message } = res || {};
       if (code == 200 && data) {
         localStorage.setItem("loginInfo", JSON.stringify(data));
+        localStorage.setItem("user_name", formInput.username);
         store.dispatch(
           setLoginSession({
             access_token: data?.access_token || "",
